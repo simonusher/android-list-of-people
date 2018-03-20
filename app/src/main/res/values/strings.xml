@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">ListOfPeople</string>
+    <string name="app_name">List of people</string>
+    <string name="ageLabel">Age</string>
+    <string name="addPersonLabel">Add person</string>
+    <string name="nameLabel">Name</string>
+    <string name="surnameLabel">Surname</string>
+    <string name="dateOfBirthLabel">Date of birth</string>
+    <string name="exampleDateFormat">dd.mm.yyyy</string>
+    <string name="acceptMenuItemText">Accept</string>
+    <string name="addPersonMenuItemText">Add</string>
+    <string name="errorFieldsEmpty">Please fill in all the fields!</string>
+    <string name="errorDateFormatIncorrect">Please provide date in dd.mm.yyyy format!</string>
+    <string name="errorDateFromTheFuture">Date of birth cannot be from the future!</string>
+    <string name="errorDateIncorrect">Date incorrect!</string>
+    <string name="addedPerson">Added person.</string>
+    <string name="incorrectPersonAge">Age has to be smaller than 150 years!</string>
 </resources>
