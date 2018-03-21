@@ -24,30 +24,6 @@ public class UtilsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void parseDate_should_throw_exception_when_string_empty() {
-        String testString = "";
-        Utils.parseDate(testString);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void parseDate_should_throw_exception_when_string_null() {
-        String testString = null;
-        Utils.parseDate(testString);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void parseDate_should_throw_exception_when_format_incorrect() {
-        String testString = "10-08-2000";
-        Utils.parseDate(testString);
-    }
-
-    @Test
-    public void parseDate_should_throw_work_correctly_when_format_correct() {
-        String testString = "10.08.2000";
-        Utils.parseDate(testString);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void getDifferenceInYearsFromNow_should_throw_exception_when_date_from_the_future() {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -64,9 +40,22 @@ public class UtilsTest {
     }
 
     @Test
-    public void getDifferenceInYearsFromNow_should_work_when_date_before_now() {
-        Date date = Utils.parseDate("10.08.2000");
-        int diff = Utils.getDifferenceInYearsFromNow(date);
-        System.out.println("Difference from 10.08.2000 is: " + diff);
+    public void isAlphabetic_should_return_true_for_alphabetic_characters() {
+        String name = "Wozniak";
+        assertEquals(true, Utils.isAlphabetic(name));
+        name = "Woźniak";
+        assertEquals(true, Utils.isAlphabetic(name));
+    }
+
+    @Test
+    public void isAlphabetic_should_return_false_for_sequence_with_whitespace() {
+        String name = "Wozniak ";
+        assertEquals(false, Utils.isAlphabetic(name));
+    }
+
+    @Test
+    public void isAlphabetic_should_return_false_for_sequence_with_special_characters() {
+        String name = "Wozniak*";
+        assertEquals(false, Utils.isAlphabetic(name));
     }
 }

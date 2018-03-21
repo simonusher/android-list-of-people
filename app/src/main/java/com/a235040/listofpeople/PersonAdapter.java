@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,18 +25,16 @@ public class PersonAdapter extends ArrayAdapter<Person>{
         if(view == null){
             LayoutInflater inflater;
             inflater = LayoutInflater.from(getContext());
-            view = inflater.inflate(R.layout.person_list_row_layout, null);
+            view = inflater.inflate(R.layout.person_list_row_layout, parent, false);
         }
 
         final Person person = getItem(position);
         if(person != null){
             TextView nameTextView = view.findViewById(R.id.personNameTextView);
-            TextView surnameTextView = view.findViewById(R.id.personSurnameTextView);
             TextView ageTextView = view.findViewById(R.id.personAgeTextView);
-
-            nameTextView.setText(person.getName());
-            surnameTextView.setText(person.getSurname());
-            ageTextView.setText(Integer.toString(person.getAge()));
+            String fullname = person.getName() + " " + person.getSurname();
+            nameTextView.setText(fullname);
+            ageTextView.setText(getContext().getString(R.string.ageLabelMain, person.getAge()));
             ImageButton deleteButton = view.findViewById(R.id.imageButton);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override

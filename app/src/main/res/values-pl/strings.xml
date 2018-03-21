@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista ludzi</string>
+    <string name="acceptMenuItemText">Akceptuj</string>
+    <string name="addPersonMenuItemText">Dodaj</string>
+    <string name="addedPerson">Dodano osobę.</string>
+    <string name="addPersonLabel">Dodaj osobę</string>
+    <string name="ageLabel">Wiek</string>
+    <string name="ageLabelMain">Wiek: %1$d</string>
+    <string name="incorrectPersonAge">Wiek musi być mniejszy niż 150 lat!</string>
+    <string name="errorDateIncorrect">Niepoprawna data!</string>
+    <string name="dateOfBirthLabel">Data urodzenia</string>
+    <string name="errorDateFromTheFuture">Data urodzenia nie może być z przyszłości!</string>
+    <string name="nameLabel">Imię</string>
+    <string name="errorFieldsEmpty">Wypełnij wszystkie pola!</string>
+    <string name="surnameLabel">Nazwisko</string>
+    <string name="errorFieldsContainSpecialCharacters">Pola nie mogą zawierać znaków specjalnych i spacji!</string>
+</resources>

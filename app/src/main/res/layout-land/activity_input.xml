@@ -10,9 +10,9 @@
         android:id="@+id/addPersonTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/addPersonLabel"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/nameLabel"
         app:layout_constraintStart_toStartOf="@+id/nameEditText"
         app:layout_constraintTop_toBottomOf="@+id/addPersonTextView" />
@@ -43,7 +43,7 @@
         android:id="@+id/surnameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/surnameLabel"
         app:layout_constraintStart_toStartOf="@+id/surnameEditText"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
@@ -64,7 +64,7 @@
         android:id="@+id/bornTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/dateOfBirthLabel"
         app:layout_constraintStart_toStartOf="@+id/dateEditText"
         app:layout_constraintTop_toBottomOf="@+id/surnameEditText" />

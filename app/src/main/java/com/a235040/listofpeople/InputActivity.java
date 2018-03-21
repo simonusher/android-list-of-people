@@ -1,24 +1,28 @@
 package com.a235040.listofpeople;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class InputActivity extends Activity {
-    EditText nameEditText;
-    EditText surnameEditText;
-    EditText dateEditText;
+    private EditText nameEditText;
+    private EditText surnameEditText;
+    private EditText dateEditText;
+    private static final Calendar calendar = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
         initializeFields();
+        addListeners();
     }
 
     @Override
@@ -45,43 +49,64 @@ public class InputActivity extends Activity {
         this.dateEditText = findViewById(R.id.dateEditText);
     }
 
-    private boolean fieldsNotEmpty(){
-        return Utils.stringNotEmpty(nameEditText.getText().toString())
-                && Utils.stringNotEmpty(surnameEditText.getText().toString())
-                && Utils.stringNotEmpty(dateEditText.getText().toString());
+    private void addListeners(){
+        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateDateField();
+            }
+        };
+
+        dateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog dialog = new DatePickerDialog(InputActivity.this,
+                        dateSetListener, calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
+            }
+        });
+    }
+
+    private void updateDateField(){
+        dateEditText.setText(Utils.formatDate(calendar));
     }
 
     private void addPerson(){
         if(fieldsNotEmpty()){
-            try{
-                int diffInYearsFromNow = Utils.getDifferenceInYearsFromNow(dateEditText.getText().toString());
+            if(nameFieldsCorrect()){
                 try{
-                    Person person = Person.createPerson(nameEditText.getText().toString(), surnameEditText.getText().toString(), diffInYearsFromNow);
-                    MainActivity.listOfPeople.add(person);
-                    ToastUtils.showToast(getString(R.string.addedPerson), this);
-                    finish();
-                }catch (IllegalArgumentException e){
-                    ToastUtils.showToast(getString(R.string.incorrectPersonAge), this);
+                    int diffInYearsFromNow = Utils.getDifferenceInYearsFromNow(calendar.getTime());
+                    try{
+                        Person person = Person.createPerson(nameEditText.getText().toString(), surnameEditText.getText().toString(), diffInYearsFromNow);
+                        MainActivity.listOfPeople.add(person);
+                        ToastUtils.showToast(getString(R.string.addedPerson), this);
+                        finish();
+                    }catch (IllegalArgumentException e){
+                        ToastUtils.showToast(getString(R.string.incorrectPersonAge), this);
+                    }
+                } catch (IllegalArgumentException e){
+                    ToastUtils.showToast(getString(R.string.errorDateFromTheFuture), this);
                 }
-            } catch (DateIncorrectException e){
-                handleDateError(e);
+            }
+            else {
+                ToastUtils.showToast(getString(R.string.errorFieldsContainSpecialCharacters), this);
             }
         } else {
             ToastUtils.showToast(getString(R.string.errorFieldsEmpty), this);
         }
     }
 
-    private void handleDateError(DateIncorrectException e){
-        switch (e.getErrorType()){
-            case DATE_FORMAT_ERROR:
-                ToastUtils.showToast(getString(R.string.errorDateFormatIncorrect), this);
-                break;
-            case DATE_INCORRECT_ERROR:
-                ToastUtils.showToast(getString(R.string.errorDateIncorrect), this);
-                break;
-            case FUTURE_DATE_ERROR:
-                ToastUtils.showToast(getString(R.string.errorDateFromTheFuture), this);
-                break;
-        }
+    private boolean fieldsNotEmpty(){
+        return Utils.stringNotEmpty(nameEditText.getText().toString())
+                && Utils.stringNotEmpty(surnameEditText.getText().toString())
+                && Utils.stringNotEmpty(dateEditText.getText().toString());
+    }
+
+    private boolean nameFieldsCorrect(){
+        return Utils.isAlphabetic(nameEditText.getText().toString()) && Utils.isAlphabetic(surnameEditText.getText().toString());
     }
 }

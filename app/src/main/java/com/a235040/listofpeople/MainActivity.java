@@ -2,6 +2,7 @@ package com.a235040.listofpeople;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,15 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener{
-    public static List<Person> listOfPeople;
+    public static List<Person> listOfPeople = new ArrayList<>();
     private PersonAdapter adapter;
     private ListView personListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listOfPeople = new ArrayList<>();
-
         adapter = new PersonAdapter(this, android.R.layout.simple_list_item_1, listOfPeople);
         personListView = findViewById(R.id.listOfPeople);
         personListView.setOnItemClickListener(this);
@@ -60,5 +59,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }
