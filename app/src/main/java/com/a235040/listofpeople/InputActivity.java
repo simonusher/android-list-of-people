@@ -81,7 +81,8 @@ public class InputActivity extends Activity {
                 try{
                     int diffInYearsFromNow = Utils.getDifferenceInYearsFromNow(calendar.getTime());
                     try{
-                        Person person = Person.createPerson(nameEditText.getText().toString(), surnameEditText.getText().toString(), diffInYearsFromNow);
+                        Person person = Person.createPerson(nameEditText.getText().toString().trim(),
+                                surnameEditText.getText().toString().trim(), diffInYearsFromNow);
                         MainActivity.listOfPeople.add(person);
                         ToastUtils.showToast(getString(R.string.addedPerson), this);
                         finish();
@@ -107,6 +108,6 @@ public class InputActivity extends Activity {
     }
 
     private boolean nameFieldsCorrect(){
-        return Utils.isAlphabetic(nameEditText.getText().toString()) && Utils.isAlphabetic(surnameEditText.getText().toString());
+        return Utils.isAlphabetic(nameEditText.getText().toString().trim()) && Utils.isAlphabetic(surnameEditText.getText().toString().trim());
     }
 }
